@@ -1,5 +1,5 @@
 -module (reverse).
--export ([rev1/1, revNormal/1, revCps/1]).
+-export ([rev1/1, revNormal/1, revCps/1, revfold/1]).
 
 
 %COLA Cps???
@@ -17,3 +17,7 @@ revCps(Lst) -> revCps(Lst, fun(X) -> X end).
 
 revCps([], K) -> K([]);
 revCps([H | T], K) -> revCps(T, fun (X) -> K([X | H]) end).
+
+%foldr
+
+revfold(Lst)-> lists:foldr(fun(X, Acc) -> [X | Acc] end, [], lists:reverse(Lst)).

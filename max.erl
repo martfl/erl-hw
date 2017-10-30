@@ -1,5 +1,5 @@
 -module (max).
--export ([max1/1, max2/1, maxCps/1]).
+-export ([max1/1, max2/1, maxCps/1, maxfold/1]).
 %Realizar las funciones de max, reverse, sum, last y ++ en 4 versiones 
 
 %Recursión "normal", de cola ("arrastrando el resultado", de cola (usando cps) y fldr)
@@ -20,3 +20,7 @@ maxCps(Lst) -> maxCps(Lst, fun (X) -> X end).
 
 maxCps([], K) -> K(0);
 maxCps([H | T], K) -> maxCps(T, fun (X) -> K(erlang:max(X, H)) end).
+
+%foldr
+
+maxfold([H|T]) -> lists:foldr(fun(A,B) when A > B -> A; (_,B) -> B end, H, T).

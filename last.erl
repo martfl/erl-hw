@@ -1,5 +1,5 @@
 -module (last).
--export ([last1/1, last2/1, lastCps/1]).
+-export ([last1/1, last2/1, lastCps/1, lastfold/1]).
 
 %normal
 last1([H|[]])->H;
@@ -10,10 +10,15 @@ last2([A]) -> A;
 last2([H | T]) -> last2([H | T], H).
 
 last2([], X) -> X;
-last2([H | T], X) -> last2(T, H).
+last2([H | T], _X) -> last2(T, H).
 
 %cps
 lastCps(Lst) -> lastCps(Lst, fun (X) -> X end).
 
 lastCps([A], K) -> K(A);
-lastCps([H | T], K) -> lastCps(T, fun (X) -> K(X) end).
+lastCps([_H | T], K) -> lastCps(T, fun (X) -> K(X) end).
+
+%foldr
+
+lastfold(Lst1) -> lists:foldr(fun(T, _X)-> T end, 0, lists:reverse(Lst1)).
+

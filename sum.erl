@@ -1,5 +1,5 @@
 -module (sum).
--export ([sum1/1, sum2/1, sumCps/1]).
+-export ([sum1/1, sum2/1, sumCps/1, sumfold/1]).
 
 
 %COLA
@@ -17,3 +17,6 @@ sumCps(Lst) -> sumCps(Lst, fun(X) -> X end).
 
 sumCps([], K) -> K(0);
 sumCps([H | T], K) -> sumCps(T, fun(X) -> K(X+H) end).
+
+%foldr
+sumfold(Lst)->lists:foldr(fun(X, Sum)->Sum+X end, 0, Lst).
